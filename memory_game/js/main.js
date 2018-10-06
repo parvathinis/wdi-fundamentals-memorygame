@@ -32,17 +32,23 @@ var checkForMatch = function() {
     }    
 }
 
-var flipCard = function(cardId) {
-    var card = cards[cardId]; 
+var flipCard = function() {
+    var card = cards[this.getAttribute('data-id')]; 
     cardsInPlay.push(card.rank);
 
-    console.log("User flipped " + card.rank); 
-    console.log("User flipped " + card.cardImage);
-    console.log("User flipped " + card.suit);
+    this.setAttribute('src', card.cardImage);
 
     checkForMatch();
 }
 
+var createBoard = function() {
+    for(var i = 0; i < cards.length; i++) {
+        var image = document.createElement('img');
+        image.setAttribute('src', "images/back.png");
+        image.setAttribute('data-id', i);
+        image.addEventListener('click', flipCard);
+        document.getElementById('game-board').appendChild(image);
+    }
+}
 
-flipCard(0);
-flipCard(2);
+createBoard();
